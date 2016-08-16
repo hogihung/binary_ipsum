@@ -425,8 +425,8 @@ Ok, time to get serious.  Let's make our test actually test something:
   describe "string_to_char_code" do
     it "returns the character code for a given character" do
       single_char = BinaryIpsum.new('R')
-      char_code   = binary_ipsum.to_char_code
-      expect(char_codes).to eq 82
+      char_code   = single_char.to_char_code
+      expect(char_code).to eq 82
     end
   end
 
@@ -460,6 +460,114 @@ rspec ./spec/binary_ipsum_spec.rb:6 # BinaryIpsum string_to_char_code returns th
 
 ➜  binary_ipsum
 ```
+
+Ok, a little more progress.  The above error should point us in the right direction.
+We passed in 1 argument, but it was expecting 0.  We can fix this!  Go to your
+binary_ipsum.rb file and make the following update:
+
+```
+  def initialize(lorem_string)
+    @lorem_string = lorem_string
+  end
+```
+
+
+Save the file and retry the test:
+
+
+```
+BinaryIpsum
+  string_to_char_code
+    returns the character code for a given character (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum string_to_char_code returns the character code for a given character
+     Failure/Error: char_code   = single_char.to_char_code
+
+     NoMethodError:
+       undefined method `to_char_code' for #<BinaryIpsum:0x007fb1eb1ebde8 @lorem_string="R">
+     # ./spec/binary_ipsum_spec.rb:9:in `block (3 levels) in <top (required)>'
+
+Finished in 0.00058 seconds (files took 0.08835 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:7 # BinaryIpsum string_to_char_code returns the character code for a given character
+
+➜  binary_ipsum git:(master) ✗
+```
+
+Cool, new error.  This is good as it means we are making progress.
+
+Focus your attention to the error:
+
+```
+ NoMethodError:
+   undefined method `to_char_code' for #<BinaryIpsum:0x007fb1eb1ebde8 @lorem_string="R">
+```
+
+Ok, so the error is telling us that the method 'to_char_code' is undefined. 
+Let's go define it shall we?
+
+Back in your binary_ipsum.rb file, we will make a small edit:
+
+```
+  def to_char_code
+  end
+```
+
+Run the test - I hope you are starting to see a pattern here.  :)
+
+```
+BinaryIpsum
+  string_to_char_code
+    returns the character code for a given character (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum string_to_char_code returns the character code for a given character
+     Failure/Error: expect(char_code).to eq 82
+
+       expected: 82
+            got: nil
+
+       (compared using ==)
+     # ./spec/binary_ipsum_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+Finished in 0.02696 seconds (files took 0.08173 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:7 # BinaryIpsum string_to_char_code returns the character code for a given character
+
+➜  binary_ipsum git:(master) ✗
+```
+
+Excellent!  We are very close.  Now we just need to make the 'got' be the same
+as the 'expected'.
+
+What is the simplest thing we could do next to make this test pass?
+
+Well, I suppose we could update the to_char_code method as follows:
+
+```
+  def to_char_code
+    82
+  end
+
+```
+
+But that probably is not the best approach.  Let's try a real fix with some code:
+
+```
+  def to_char_code
+    @lorem_string.ord
+  end
+```
+
 
 
 
