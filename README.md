@@ -306,7 +306,7 @@ require 'spec_helper'
 
 RSpec.describe BinaryIpsum do
 
-  describe "string_to_char_code" do
+  describe "string_to_char_codes" do
     xit "returns the character code for a given character" do
       #...
     end
@@ -398,12 +398,12 @@ Ok, try our tests yet again:
 ➜  binary_ipsum rspec spec/
 
 BinaryIpsum
-  string_to_char_code
+  string_to_char_codes
     returns the character codes for a given string (PENDING: Temporarily skipped with xit)
 
 Pending: (Failures listed here are expected and do not affect your suite's status)
 
-  1) BinaryIpsum string_to_char_code returns the character codes for a given string
+  1) BinaryIpsum string_to_char_codes returns the character codes for a given string
      # Temporarily skipped with xit
      # ./spec/binary_ipsum_spec.rb:6
 
@@ -422,7 +422,7 @@ Ok, time to get serious.  Let's make our test actually test something:
 # spec/binary_ipsum_spec.rb
 {--snip--}
 
-  describe "string_to_char_code" do
+  describe "string_to_char_codes" do
     it "returns the character code for a given character" do
       single_char = BinaryIpsum.new('R')
       char_code   = single_char.to_char_code
@@ -437,12 +437,12 @@ Now run the test and let's see what happens:
 
 ```
 BinaryIpsum
-  string_to_char_code
+  string_to_char_codes
     returns the character code for a given character (FAILED - 1)
 
 Failures:
 
-  1) BinaryIpsum string_to_char_code returns the character code for a given character
+  1) BinaryIpsum string_to_char_codes returns the character code for a given character
      Failure/Error: single_char = BinaryIpsum.new('R')
 
      ArgumentError:
@@ -456,7 +456,7 @@ Finished in 0.0008 seconds (files took 0.08607 seconds to load)
 
 Failed examples:
 
-rspec ./spec/binary_ipsum_spec.rb:6 # BinaryIpsum string_to_char_code returns the character code for a given character
+rspec ./spec/binary_ipsum_spec.rb:6 # BinaryIpsum string_to_char_codes returns the character code for a given character
 
 ➜  binary_ipsum
 ```
@@ -477,12 +477,12 @@ Save the file and retry the test:
 
 ```
 BinaryIpsum
-  string_to_char_code
+  string_to_char_codes
     returns the character code for a given character (FAILED - 1)
 
 Failures:
 
-  1) BinaryIpsum string_to_char_code returns the character code for a given character
+  1) BinaryIpsum string_to_char_codes returns the character code for a given character
      Failure/Error: char_code   = single_char.to_char_code
 
      NoMethodError:
@@ -494,7 +494,7 @@ Finished in 0.00058 seconds (files took 0.08835 seconds to load)
 
 Failed examples:
 
-rspec ./spec/binary_ipsum_spec.rb:7 # BinaryIpsum string_to_char_code returns the character code for a given character
+rspec ./spec/binary_ipsum_spec.rb:7 # BinaryIpsum string_to_char_codes returns the character code for a given character
 
 ➜  binary_ipsum git:(master) ✗
 ```
@@ -522,12 +522,12 @@ Run the test - I hope you are starting to see a pattern here.  :)
 
 ```
 BinaryIpsum
-  string_to_char_code
+  string_to_char_codes
     returns the character code for a given character (FAILED - 1)
 
 Failures:
 
-  1) BinaryIpsum string_to_char_code returns the character code for a given character
+  1) BinaryIpsum string_to_char_codes returns the character code for a given character
      Failure/Error: expect(char_code).to eq 82
 
        expected: 82
@@ -541,7 +541,7 @@ Finished in 0.02696 seconds (files took 0.08173 seconds to load)
 
 Failed examples:
 
-rspec ./spec/binary_ipsum_spec.rb:7 # BinaryIpsum string_to_char_code returns the character code for a given character
+rspec ./spec/binary_ipsum_spec.rb:7 # BinaryIpsum string_to_char_codes returns the character code for a given character
 
 ➜  binary_ipsum git:(master) ✗
 ```
@@ -568,8 +568,221 @@ But that probably is not the best approach.  Let's try a real fix with some code
   end
 ```
 
+Since we have our test passing now, let's go ahead and do another commit:
+
+```
+git status
+git add .
+git commit -m 'First test is passing'
+```
 
 
+Time for another test.  We have done good so far by converting a single character
+to the appropriate character code.  But we need to take it a step further.  We
+need to take a whole word, for example 'Ruby', and convert it to an array of 
+character codes.
+
+For example, Ruby should equal [82, 117, 98, 121].  Let's go update our test.
+Pop on over to the spec file, spec/binary_ipsum_spec.rb.  Now, we will add a
+new test:
+
+```
+require 'spec_helper'
+require './binary_ipsum'
+
+RSpec.describe BinaryIpsum do
+
+  describe "string_to_char_codes" do
+    it "returns the character code for a given character" do
+      single_char = BinaryIpsum.new('R')
+      char_code   = single_char.to_char_code
+      expect(char_code).to eq 82
+    end
+
+    it "returns an array of character codes for the word Ruby" do
+      string_ruby = BinaryIpsum.new('Ruby')
+      expect(string_ruby.to_char_codes).to eq [82, 117, 98, 121]
+    end
+  end
+
+end
+```
+
+Save your changes and, yes, run the test again.
+
+```
+BinaryIpsum
+  string_to_char_codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum string_to_char_codes returns an array of character codes for the word Ruby
+     Failure/Error: expect(string_ruby.to_char_codes).to eq [82, 117, 98, 121]
+
+     NoMethodError:
+       undefined method `to_char_codes' for #<BinaryIpsum:0x007fa7cca5f868 @lorem_string="Ruby">
+     # ./spec/binary_ipsum_spec.rb:15:in `block (3 levels) in <top (required)>'
+
+Finished in 0.00111 seconds (files took 0.08997 seconds to load)
+2 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:13 # BinaryIpsum string_to_char_codes returns an array of character codes for the word Ruby
+
+➜  binary_ipsum git:(master) ✗
+```
+
+Hmmm, another undefined method.  Ok, let's fix this!  Go back to, or re-open
+your binary_ipsum.rb file.  We will add a new method:
+
+```
+  def to_char_codes
+  end
+```
+
+Re-running our tests, we see that we made it one step further:
+
+```
+BinaryIpsum
+  string_to_char_codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum string_to_char_codes returns an array of character codes for the word Ruby
+     Failure/Error: expect(string_ruby.to_char_codes).to eq [82, 117, 98, 121]
+
+       expected: [82, 117, 98, 121]
+            got: nil
+
+       (compared using ==)
+     # ./spec/binary_ipsum_spec.rb:15:in `block (3 levels) in <top (required)>'
+
+Finished in 0.02225 seconds (files took 0.08936 seconds to load)
+2 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:13 # BinaryIpsum string_to_char_codes returns an array of character codes for the word Ruby
+
+➜  binary_ipsum git:(master) ✗
+```
+
+Ok, shall we see if we can get this test to pass?  Try it on your own for a
+minute.  We will take a look together shortly.
+
+```
+  def to_char_codes
+    result = []
+    @lorem_string.chars.each do |ltr|
+      result << ltr.ord
+    end
+    result
+  end
+```
+
+Run the tests and what shall we see?
+
+```
+BinaryIpsum
+  string_to_char_codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+
+Finished in 0.00098 seconds (files took 0.08197 seconds to load)
+2 examples, 0 failures
+
+➜  binary_ipsum git:(master) ✗
+```
+
+SWEET!  Both tests are green.  Do you know what time it is?  No, not literally.
+We have gone from Red to Green.  Now it is time to refactor!
+
+The first thing I think we should try is to tighten up our code that we just
+created in the to_char_codes method.  The nice thing about having our tests
+green at the moment is that we can feel confident about trying out changes to
+our code.  Try to improve things.  
 
 
+```
+  def to_char_codes
+    @lorem_string.chars.map { |ltr| ltr.ord }
+  end
+```
 
+With the new code in place, re-run our tests:
+
+```
+BinaryIpsum
+  string_to_char_codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+
+Finished in 0.00119 seconds (files took 0.08715 seconds to load)
+2 examples, 0 failures
+
+➜  binary_ipsum git:(master) ✗
+```
+
+NICE!  Still green.
+
+
+Before we commit our changes, I'd like to do a little more clean up.  Do we 
+really need to methods here?  I think we can get by with just one.  But we
+will need to make a small modification to both our class and our test files.
+
+
+Below is a quick review of what both our test and class file should look like
+now that we have made a few modifications:
+
+```
+# spec/binary_ipsum_spec.rb
+
+require 'spec_helper'
+require './binary_ipsum'
+
+RSpec.describe BinaryIpsum do
+
+  describe "string_to_char_codes" do
+    it "returns the character code for a given character" do
+      single_char = BinaryIpsum.new('R')
+      char_code   = single_char.to_char_codes
+      expect(char_code).to eq [82]
+    end
+
+    it "returns an array of character codes for the word Ruby" do
+      string_ruby = BinaryIpsum.new('Ruby')
+      expect(string_ruby.to_char_codes).to eq [82, 117, 98, 121]
+    end
+  end
+
+end
+```
+
+
+```
+# binary_ipsum.rb
+
+class BinaryIpsum
+
+  def initialize(lorem_string)
+    @lorem_string = lorem_string
+  end
+
+  def to_char_codes
+    @lorem_string.chars.map { |ltr| ltr.ord }
+  end
+
+end
+```
+
+
+Now would be a great time to commit our changes:
+
+```
+
+```
