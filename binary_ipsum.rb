@@ -1,11 +1,13 @@
 class BinaryIpsum
 
+  attr_reader :lorem_string
+
   def initialize(lorem_string)
     @lorem_string = lorem_string
   end
 
   def to_char_codes
-    @lorem_string.chars.map { |ltr| ltr.ord }
+    lorem_string.chars.map { |ltr| ltr.ord }
   end
 
   def to_binary
