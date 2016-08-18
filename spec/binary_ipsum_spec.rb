@@ -3,7 +3,7 @@ require './binary_ipsum'
 
 RSpec.describe BinaryIpsum do
 
-  describe "string_to_char_codes" do
+  describe "string convert to character codes" do
     it "returns the character code for a given character" do
       single_char = BinaryIpsum.new('R')
       char_code   = single_char.to_char_codes
@@ -16,4 +16,12 @@ RSpec.describe BinaryIpsum do
     end
   end
 
+  describe "converts a string to binary" do
+    it "returns binary representation for a submitted string" do
+      string_ruby = BinaryIpsum.new('Ruby')
+      expect(string_ruby.to_binary).to eq "01010010 01110101 01100010 01111001"
+    end
+  end
+
 end
+
