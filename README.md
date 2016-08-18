@@ -277,9 +277,11 @@ I'm going to show you a trick that I used when I had to deal with dotted-decimal
 notation back in my Cisco (routers/switches) days.
 (Resource: https://en.wikipedia.org/wiki/Dot-decimal_notation)
 
+```
       128  64  32  16  |  8  4  2  1
 0   =   0   0   0   0  |  0  0  0  0
 255 =   1   1   1   1  |  1  1  1  1
+```
 
 The pipe charcter is not needed, it just helps me visualize the seperation of
 the first four bits from the second four bits.
@@ -287,10 +289,10 @@ the first four bits from the second four bits.
 With the above example present, can anyone tell me which bits should be on (1)
 and which should be off (0) in order to come up with the value of 82?
 
-R = 82  =
-u = 117 =
-b = 98  =
-y = 121 =
+R = 82 
+u = 117
+b = 98 
+y = 121
 
 With the above information at hand, we can now return to writing our first test.
 We will use the word 'Ruby', the character codes, and the calculated binary 
@@ -784,5 +786,305 @@ end
 Now would be a great time to commit our changes:
 
 ```
+git status
+git add .
+git commit -m 'Tests passing, code refactored.  New method to_char_codes completed.'
+```
+
+
+## Converting a character code to binary
+
+So far we have seen how to convert a single character, or a word, to an array of
+character codes.  For example, we took the word 'Ruby' and converted it to the
+array [82, 117, 98, 121].  So the next problem to solve is how do we go from a
+normal number to binary?  Let's review what we covered earlier:
 
 ```
+      128  64  32  16  |  8  4  2  1
+0   =   0   0   0   0  |  0  0  0  0
+255 =   1   1   1   1  |  1  1  1  1
+```
+
+With our little guide above, let's manually convert 'Ruby' to binary.
+
+R = 82  =  01010010
+u = 117 =  01110101
+b = 98  =  01100010
+y = 121 =  01111001
+
+Very good!  Now it is time for that next test - to the Bat Mobile!
+
+Let's add a new test.  Below is the rough and dirty of it:
+
+```
+  describe "converts a string to binary" do
+    xit "returns binary representation for a submitted string" do
+  end
+```
+
+
+When we run our test now, we should see the following:
+
+```
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string (PENDING: Temporarily skipped with xit)
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) BinaryIpsum converts a string to binary returns binary representation for a submitted string
+     # Temporarily skipped with xit
+     # ./spec/binary_ipsum_spec.rb:20
+
+
+Finished in 0.00153 seconds (files took 0.1465 seconds to load)
+3 examples, 0 failures, 1 pending
+
+➜  binary_ipsum git:(master) ✗
+
+```
+
+
+Let's try a real test.  Update your spec/binary_ipsum_spec.rb file with:
+
+```
+  describe "converts a string to binary" do
+    it "returns binary representation for a submitted string" do
+      string_ruby = BinaryIpsum.new('Ruby')
+      expect(string_ruby.to_binary).to eq "01010010 01110101 01100010 01111001"
+    end
+  end
+```
+
+And yes, run the tests again:
+
+```
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum converts a string to binary returns binary representation for a submitted string
+     Failure/Error: expect(string_ruby.to_binary).to eq "01010010 01110101 01100010 01111001"
+
+     NoMethodError:
+       undefined method `to_binary' for #<BinaryIpsum:0x007fc335899568 @lorem_string="Ruby">
+     # ./spec/binary_ipsum_spec.rb:22:in `block (3 levels) in <top (required)>'
+
+Finished in 0.00147 seconds (files took 0.0851 seconds to load)
+3 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:20 # BinaryIpsum converts a string to binary returns binary representation for a submitted string
+
+➜  binary_ipsum git:(master) ✗
+```
+
+
+I'm going to go visit the rest room, see if you can figure this one out on your
+own.  I'll be back soon.
+
+
+
+Figure it out?  First we need to add the missing missing/undefined method:
+
+```
+  def to_binary
+    #...
+  end
+```
+
+
+Run the tests again:
+
+```
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum converts a string to binary returns binary representation for a submitted string
+     Failure/Error: expect(string_ruby.to_binary).to eq "01010010 01110101 01100010 01111001"
+
+       expected: "01010010 01110101 01100010 01111001"
+            got: nil
+
+       (compared using ==)
+     # ./spec/binary_ipsum_spec.rb:22:in `block (3 levels) in <top (required)>'
+
+Finished in 0.02518 seconds (files took 0.08199 seconds to load)
+3 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:20 # BinaryIpsum converts a string to binary returns binary representation for a submitted string
+
+➜  binary_ipsum git:(master) ✗
+```
+
+
+New error == progress.  Time to make this puppy pass!
+
+
+I think now would be a great time to bring in a nice tool from our toolbox - pry.
+
+Update the Gemfile with the following:
+
+```
+gem 'pry'
+```
+
+Save the Gemfile and run bundle:
+
+```
+bundle install
+```
+
+Now, back in our class file, binary_ipsum.rb, in the to_binary method, add:
+
+```
+require 'pry'; binding.pry
+```
+
+Save the file and run the test suite.
+
+***REVISIT THIS PART REGARDING PRY***
+
+
+
+Ok, let's take a crack at solving this bit of code:
+
+```
+  def to_binary
+    character_codes = @lorem_string.chars.map { |ltr| ltr.ord }
+
+    result = []
+    character_codes.each do |char_code|
+      result << char_code.to_s(2)
+    end
+    result.join(' ')
+  end
+```
+
+
+Run the tests to see if we hit our mark:
+
+```
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum converts a string to binary returns binary representation for a submitted string
+     Failure/Error: expect(string_ruby.to_binary).to eq "01010010 01110101 01100010 01111001"
+
+       expected: "01010010 01110101 01100010 01111001"
+            got: "1010010 1110101 1100010 1111001"
+
+       (compared using ==)
+     # ./spec/binary_ipsum_spec.rb:22:in `block (3 levels) in <top (required)>'
+
+Finished in 0.01783 seconds (files took 0.1597 seconds to load)
+3 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:20 # BinaryIpsum converts a string to binary returns binary representation for a submitted string
+
+➜  binary_ipsum git:(master) ✗
+```
+
+
+
+Not there yet, but very close.  Do you see/understand what the problem is? Correct,
+our binary's that normaly start with a zero are truncated.
+
+Let's take another crack at it:
+
+
+```
+  def to_binary
+    character_codes = @lorem_string.chars.map { |ltr| ltr.ord }
+
+    result = []
+    character_codes.each do |char_code|
+      result << zero_pad(char_code.to_s(2))   <-- NOTE the change here ***
+    end
+    result.join(' ')
+  end
+
+
+  def zero_pad(binary_value)
+    return "0" + binary_value if binary_value.length < 8
+    binary_value
+  end
+```
+
+
+AWESOME, are tests are now green again!
+
+```
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string
+
+Finished in 0.00116 seconds (files took 0.08882 seconds to load)
+3 examples, 0 failures
+
+➜  binary_ipsum git:(master) ✗
+```
+
+What did you say?  Oh yeah, definetly an opportunity to see about refactoring:
+
+
+```
+  def to_binary
+    result = []
+    self.to_char_codes.each do |char_code|
+      result << zero_pad(char_code.to_s(2))
+    end
+    result.join(' ')
+  end
+```
+
+
+I'd like to try one more thing.  See if we can shrink this method down just
+a tad more:
+
+```
+  def to_binary
+    binary_sentence = self.to_char_codes.map { |int| int.to_s(2) }
+    binary_sentence = binary_sentence.map { |binary_word| zero_pad(binary_word) }
+    binary_sentence.join(' ')
+  end
+```
+
+I know, not a HUGE difference, but it is a reduction.  The question I want to 
+leave you with is: which version of this method is more readable for you?
+
+
+
+
+
+
+
+
