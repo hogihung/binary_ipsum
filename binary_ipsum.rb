@@ -1,4 +1,5 @@
 class BinaryIpsum
+  require 'faker'
 
   attr_reader :lorem_string
 

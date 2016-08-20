@@ -1,5 +1,6 @@
 require 'spec_helper'
 require './binary_ipsum'
+require 'faker'
 
 RSpec.describe BinaryIpsum do
 
@@ -20,6 +21,13 @@ RSpec.describe BinaryIpsum do
     it "returns binary representation for a submitted string" do
       string_ruby = BinaryIpsum.new('Ruby')
       expect(string_ruby.to_binary).to eq "01010010 01110101 01100010 01111001"
+    end
+  end
+
+  describe "converts a string of Lorem Ipsum to binary" do
+    it "returns binary representation for a lorem ipsum string" do
+      lorem_string = BinaryIpsum.new("Sapiente consequatur aperiam eius.")
+      expect(lorem_string.to_binary).to eq "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 0100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 0100000 01100101 01101001 01110101 01110011 0101110"
     end
   end
 
