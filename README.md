@@ -1,6 +1,17 @@
 # BINARY IPSUM
 
 
+### REQUIRMENTS:
+
+  1.  Ruby   2.3.0  (please have this version or greater already installed)
+  2.  RSpec  3.4.0  (we will install in the class if you need it)
+  3.  Faker  1.6    (we will install in the class if you need it)
+
+
+*For fun, give an example of the RUBY I did while at AT&T:
+~/Dropbox/Programming/krappy_code/ruby_packets-master/DI1412_packet.txt*
+
+
 ### Before you begin, confirm you have Ruby and RSpec installed
 
 ```
@@ -22,7 +33,16 @@ rspec-rails (3.4.2, 3.4.0, 3.1.0, 2.99.0)
 rspec-support (3.4.1, 3.2.2, 3.1.2)
 spring-commands-rspec (1.0.4)
 ➜  LEARNING_NOTES
+```
 
+
+```
+TIP:  To limit the output of grepping for rspec, try this:
+      gem list | egrep '^rspec '
+
+      ➜  binary_ipsum git:(master) ✗ gem list | egrep '^rspec '
+      rspec (3.4.0, 3.2.0, 3.1.0, 2.99.0)
+      ➜  binary_ipsum git:(master) ✗
 ```
 
 If you do not have RSpec installed, you can either add it now, or grab it with
@@ -30,8 +50,9 @@ bundle install a bit later as it will be defined in our Gemfile.  To install now
 you can run:
 
 ```
-# Resource:  https://relishapp.com/rspec/docs/gettingstarted
 gem install rspec
+
+# Resource:  https://relishapp.com/rspec/docs/gettingstarted
 ```
 
 
@@ -48,7 +69,7 @@ If you like that structure feel free to create a LEARNING_NOTES directory in you
 home directory.  Next we will create a directory for our project.
 
 *Note: If you are cloning the repo, you can skip the next step of creating the
-       binary_ipsum directory in your ~/LEARNING_NOTES directory
+       binary_ipsum directory in your ~/LEARNING_NOTES directory*
 
 ```
 cd ~
@@ -60,16 +81,20 @@ cd binary_ipsum
 Now we need to create our Gemfile and add a few bits to it:
 
 ```
-touch Gemfile
+bundle init 
 vim Gemfile
 
-# Add the following:
-
-source 'https://rubygems.org'
-
+# Add the following (after source 'https://rubygems.org'):
 gem 'rspec', '~> 3.4.0'
 gem 'faker', '~> 1.6', '>= 1.6.2'
 ```
+
+*NOTE: If you received an error when running bundle init, you may need to install bundler.*
+
+       Only perform the next step if you need to install bundler:
+
+       gem install bundler
+
 
 Now save and exit from the editting of your new Gemfile.  Next, we need to run
 bundle to pull in our requirments of rspec and faker:
@@ -96,6 +121,21 @@ Using rspec 3.4.0
 Bundle complete! 2 Gemfile dependencies, 9 gems now installed.
 Use `bundle show [gemname]` to see where a bundled gem is installed.
 ```
+
+As a confirmation step, let's run the following:
+
+```
+bundle list
+```
+
+**Tip: Want to know where a specific gem was installed?  You can use bundler:**
+
+       bundle show <gem-name-here>
+       
+       Example:
+        ✗ bundle show pry
+        /Users/jfhogarty/.rvm/gems/ruby-2.2.3/gems/pry-0.10.4
+        ✗
 
 With RSpec successfully installed we need to run the following command to
 initialize RSpec for our project:
@@ -194,6 +234,9 @@ Ok excellent.  Let's practice some good workflow skills and initialze our projec
 as a git repo and commit what we have so far:
 
 ```
+touch .gitignore
+echo '**/.DS_Store' > .gitignore    # You should only need this step if you are on a Mac
+
 git init
 git add .
 git commit -m 'Initial Commit'
@@ -207,8 +250,8 @@ to taking a Lorem Ipsum sentence and converting it to Binary.  Most of us humans
 do not normally converse in binary.  What exactly is binary?  How does it relate
 to the task at hand?
 
-In the simpliest term, we visualize binary as either 0 or 1.  Let's look at word
-that is more family to us silly humans:  Ruby
+In the simpliest term, we visualize binary as either 0 or 1.  Let's look at a word
+that is more familiar to us silly humans:  Ruby
 
 The word 'Ruby' is a collection/string of characters.  Those characters being:
 
@@ -244,23 +287,39 @@ Behind the scenes, those letters have a decimal representation.  For example:
 *Note:  I took a little short cut above.  The long form way would be:*
 
 ```
-example_word = "Ruby"
-example_as_array = example_word.chars
-
-example_as_array.each do |ltr|
-  puts ltr.ord
-end
-
-2.2.3 :005 > example_word
+ :001 > example_word = "Ruby"
 "Ruby"
-2.2.3 :006 > example_word.chars
+ :002 > example_as_array = example_word.chars
 [
     [0] "R",
     [1] "u",
     [2] "b",
     [3] "y"
 ]
-2.2.3 :007 >
+ :003 > example_as_array.each do |ltr|
+ :004 >     puts ltr.ord
+ :005?>   end
+82
+117
+98
+121
+[
+    [0] "R",
+    [1] "u",
+    [2] "b",
+    [3] "y"
+]
+ :006 > example_word
+"Ruby"
+ :007 > example_word.chars
+[
+    [0] "R",
+    [1] "u",
+    [2] "b",
+    [3] "y"
+]
+ :008 >
+
 ```
 
 
@@ -1082,9 +1141,172 @@ I know, not a HUGE difference, but it is a reduction.  The question I want to
 leave you with is: which version of this method is more readable for you?
 
 
+There is one last change that I would like to make before we move on.  I'm not
+a fan of using the instance variable @lorem_string in the to_char_codes method.
+How can we fix this?
+
+```
+  attr_reader :lorem_string
+
+  -AND-
+  
+  def to_char_codes
+    lorem_string.chars.map { |ltr| ltr.ord }
+  end
+```
+
+
+# Pulling it all together, bring in Lorem Ipsum
+
+
+Now we will we test a more complicated example - an actual Lorem Ipsum based
+sentence.  Update your binary_ipsum_spec.rb file with this new test:
+
+```
+  describe "converts a string of Lorem Ipsum to binary" do
+    it "returns binary representation for a lorem ipsum string" do
+      lorem_string = BinaryIpsum.new("Sapiente consequatur aperiam eius.")
+      expect(lorem_string.to_binary).to eq "xxxxxxxx"  # Note this is fake for now
+    end
+  end
+```
+
+In the interest of saving time, run the test and I want you to focus on this
+value in the output:  0100000
+
+
+```
+➜  binary_ipsum git:(master) ✗ clear; rspec spec/binary_ipsum_spec.rb:28
+Run options: include {:locations=>{"./spec/binary_ipsum_spec.rb"=>[28]}}
+
+BinaryIpsum
+  converts a string of Lorem Ipsum to binary
+    returns binary representation for a lorem ipsum string (FAILED - 1)
+
+Failures:
+
+  1) BinaryIpsum converts a string of Lorem Ipsum to binary returns binary representation for a lorem ipsum string
+     Failure/Error: expect(lorem_string.to_binary).to eq "xxxxxxxx"  # Note this is fake for now
+
+       expected: "xxxxxxxx"
+            got: "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 0100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 0100000 01100101 01101001 01110101 01110011 0101110"
+
+       (compared using ==)
+     # ./spec/binary_ipsum_spec.rb:30:in `block (3 levels) in <top (required)>'
+
+Finished in 0.01908 seconds (files took 0.2207 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:28 # BinaryIpsum converts a string of Lorem Ipsum to binary returns binary representation for a lorem ipsum string
+
+➜  binary_ipsum git:(master) ✗
+```
+
+
+If I am correct, that value will show up three times. Anyone know what a binary
+value of 01000000 represents?
+
+That binary value is the character code for a space.  What is the decimal equivalent?
+
+
+Yes, it is:  32
+[Resource: https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=ascii+code+for+space]
+
+
+Feel free to verify the values for the 'got' part of the test.  I'm confident
+that they are correct so I'm going to update my test to use that data in the 
+interest of saving some time.
+
+```
+  describe "converts a string of Lorem Ipsum to binary" do
+    it "returns binary representation for a lorem ipsum string" do
+      lorem_string = BinaryIpsum.new("Sapiente consequatur aperiam eius.")
+      expect(lorem_string.to_binary).to eq "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 0100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 0100000 01100101 01101001 01110101 01110011 0101110"
+    end
+  end
+```
+
+Run the tests again:
+
+```
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string
+  converts a string of Lorem Ipsum to binary
+    returns binary representation for a lorem ipsum string
+
+Finished in 0.00164 seconds (files took 0.13018 seconds to load)
+4 examples, 0 failures
+
+➜  binary_ipsum git:(master) ✗
+```
+
+
+Things are looking good.  The last thing that I would like for this application
+to do is allow the user to request a random Lorem sentence so that it will be
+converted to Binary.
+
+For example, right now our initialize our object using:
+my_string = BinaryIpsum.new("Ruby")
+
+But I would like to add some flexibility so that we can do the following:
+random_string = BinaryIpsum.new(random: true, sentences: 5)
+
+
+**NOTE: I've sketched the solution out but need to work on the dialog**
+        --> I have not created the test(s) yet ***
 
 
 
 
 
+Sum up with the following near the conclusion.
+Now while we tackled this problem in a nice programatic manner, there is, of course,
+another way. 
 
+As a quick test, fire up irb and try out the following:
+
+```
+"Ruby".unpack("C*")
+2.2.3 :003 > "Ruby".unpack("C*")
+[
+    [0] 82,
+    [1] 117,
+    [2] 98,
+    [3] 121
+]
+2.2.3 :004 >
+
+
+"R".unpack("B*")
+2.2.3 :002 > "R".unpack("B*")
+[
+    [0] "01010010"
+]
+2.2.3 :003 >
+
+
+"Ruby".unpack("B*")
+2.2.3 :001 > "Ruby".unpack("B*")
+[
+    [0] "01010010011101010110001001111001"
+]
+2.2.3 :002 >
+```
+
+Resource:  http://blog.anidear.com/2011/11/convert-string-to-binary-in-ruby.html
+
+
+
+
+# TOOLS USED
+Ruby   2.2.3
+RSpec  3.4.0
+Faker  1.6
+Vim
+Asciinema  (https://asciinema.org)
