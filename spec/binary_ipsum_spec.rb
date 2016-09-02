@@ -31,5 +31,22 @@ RSpec.describe BinaryIpsum do
     end
   end
 
+  describe "allows user to create a random lorem ipsum sentence and convert to binary" do
+    it "returns the binary representation of a random lorem ipsum string when using random true attribute" do
+      lorem_string = BinaryIpsum.new(random: true)
+      expect(lorem_string.to_binary).to include("0100000")
+    end
+
+    it "returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences" do
+      lorem_string = BinaryIpsum.new(random: true, sentences: 5)
+      expect(lorem_string.to_binary).to include("0100000")
+    end
+
+    it "returns the binary representation of the string Ruby if no parameters are passed " do
+      lorem_string = BinaryIpsum.new()
+      expect(lorem_string.to_binary).to eq "01010010 01110101 01100010 01111001"
+    end
+  end
+
 end
 
