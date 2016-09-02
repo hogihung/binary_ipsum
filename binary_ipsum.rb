@@ -3,8 +3,9 @@ class BinaryIpsum
 
   attr_reader :lorem_string
 
-  def initialize(lorem_string)
-    @lorem_string = lorem_string
+  def initialize(string: 'Ruby', random: false, sentences: 5)
+    return @lorem_string = Faker::Lorem.sentences(sentences).join(' ') if random
+    @lorem_string = string
   end
 
   def to_char_codes
