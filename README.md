@@ -1432,6 +1432,59 @@ Finished in 0.43669 seconds (files took 0.12584 seconds to load)
 **NICE!**
 
 
+Are we done now?  We better run ALL of the tests:
+
+```
+be rspec spec/
+
+{--snip--}
+
+Failed examples:
+
+rspec ./spec/binary_ipsum_spec.rb:8 # BinaryIpsum string convert to character codes returns the character code for a given character
+rspec ./spec/binary_ipsum_spec.rb:14 # BinaryIpsum string convert to character codes returns an array of character codes for the word Ruby
+rspec ./spec/binary_ipsum_spec.rb:21 # BinaryIpsum converts a string to binary returns binary representation for a submitted string
+rspec ./spec/binary_ipsum_spec.rb:28 # BinaryIpsum converts a string of Lorem Ipsum to binary returns binary representation for a lorem ipsum string
+```
+
+**CRAP!**  What happened?
+
+Luckily, this is an easy fix.  To make the new stuff work, we modified our initialize
+method.  If you review the errors we got, you may have noticed:
+
+```
+ArgumentError:
+       wrong number of arguments (1 for 0)
+```
+
+We need to update our spec file and simply add:  'string:' in our failing
+BinaryIpsum.new() calls.
+
+Okie Dokie.  Re-run all the tests:
+
+```
+➜  binary_ipsum git:(master) ✗ be rspec spec/
+
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string
+  converts a string of Lorem Ipsum to binary
+    returns binary representation for a lorem ipsum string
+  allows user to create a random lorem ipsum sentence and convert to binary
+    returns the binary representation of a random lorem ipsum string when using random true attribute
+    returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences
+    returns the binary representation of the string Ruby if no parameters are passed
+
+Finished in 0.45136 seconds (files took 0.12382 seconds to load)
+7 examples, 0 failures
+
+➜  binary_ipsum git:(master) ✗
+```
+
+
 
 Now while we tackled this problem in a nice programatic manner, there is, of course,
 another way. 
