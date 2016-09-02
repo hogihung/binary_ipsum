@@ -346,14 +346,10 @@ the first four bits from the second four bits.
 With the above example present, can anyone tell me which bits should be on (1)
 and which should be off (0) in order to come up with the value of 82?
 
-R = 82 
-u = 117
-b = 98 
-y = 121
+We will come back to this conversion to binary later in the talk.
 
 With the above information at hand, we can now return to writing our first test.
-We will use the word 'Ruby', the character codes, and the calculated binary 
-represenation to construct our test.
+We will use the word 'Ruby', and the related character codes, to construct our test.
 
 
 With your favorite editor, re-open the spec/binary\_ipsum\_spec.rb file if you do
