@@ -8,10 +8,6 @@
   3.  Faker  1.6    (we will install during the workshop if you need it)
 
 
-*For fun, give an example of the RUBY I did while at AT&T:
-~/Dropbox/Programming/krappy_code/ruby_packets-master/DI1412_packet.txt*
-
-
 ### Before you begin, confirm you have Ruby and RSpec installed
 
 ```
@@ -69,7 +65,7 @@ If you like that structure feel free to create a LEARNING_NOTES directory in you
 home directory.  Next we will create a directory for our project.
 
 *Note: If you are cloning the repo, you can skip the next step of creating the
-       binary_ipsum directory in your ~/LEARNING_NOTES directory*
+       binary\_ipsum directory in your ~/LEARNING_NOTES directory*
 
 ```
 cd ~
