@@ -4,8 +4,8 @@
 ### REQUIRMENTS:
 
   1.  Ruby   2.3.0  (please have this version or greater already installed)
-  2.  RSpec  3.4.0  (we will install in the class if you need it)
-  3.  Faker  1.6    (we will install in the class if you need it)
+  2.  RSpec  3.4.0  (we will install during the workshop if you need it)
+  3.  Faker  1.6    (we will install during the workshop if you need it)
 
 
 *For fun, give an example of the RUBY I did while at AT&T:
@@ -213,11 +213,11 @@ touch spec/binary_ipsum_spec.rb
 ```
 
 
-Let's get this party started - pull up the binary_ipsum_spec.rb file in your
+Let's get this party started - pull up the binary\_ipsum\_spec.rb file in your
 favorite editor:
 
 ```
-vim spec/binary_ipscum_spec.rb
+vim spec/binary_ipsum_spec.rb
 ```
 
 And populate that file with the following:
@@ -258,10 +258,11 @@ The word 'Ruby' is a collection/string of characters.  Those characters being:
   **R, u, b and y**
 
 Behind the scenes, those letters have a decimal representation.  For example:
-  R = 82
-  u = 117 
-  b = 98 
-  y = 121
+
+  - R = 82
+  - u = 117 
+  - b = 98 
+  - y = 121
 
 
 ```
@@ -324,10 +325,11 @@ Behind the scenes, those letters have a decimal representation.  For example:
 
 
 Ok, a quick review.  Above we saw the following:
-  R = 82
-  u = 117 
-  b = 98 
-  y = 121
+
+  - R = 82
+  - u = 117 
+  - b = 98 
+  - y = 121
 
 If we dig deeper, the number for each character is represented as binary to the
 computer.  So how can we convert each number to its binary equivalent?
@@ -358,7 +360,7 @@ We will use the word 'Ruby', the character codes, and the calculated binary
 represenation to construct our test.
 
 
-With your favorite editor, re-open the spec/binary_ipsum_spec.rb file if you do
+With your favorite editor, re-open the spec/binary\_ipsum\_spec.rb file if you do
 not already have it open.  And let's update that file to have a test that takes
 a string and returns the related character codes.
 
@@ -400,7 +402,7 @@ Go ahead and run your test:
 Bummer, that is not cool.  We barely have anything defined in our test and already 
 we have an issue.  If we scrub through the output, we can focus on this nugget:
 
-uninitialized constant BinaryIpsum (NameError)
+**uninitialized constant BinaryIpsum (NameError)**
 
 Anyone want to take a stab at what the issue is?
 
@@ -569,7 +571,7 @@ Focus your attention to the error:
    undefined method `to_char_code' for #<BinaryIpsum:0x007fb1eb1ebde8 @lorem_string="R">
 ```
 
-Ok, so the error is telling us that the method 'to_char_code' is undefined. 
+Ok, so the error is telling us that the method 'to\_char\_code' is undefined. 
 Let's go define it shall we?
 
 Back in your binary_ipsum.rb file, we will make a small edit:
@@ -612,7 +614,7 @@ as the 'expected'.
 
 What is the simplest thing we could do next to make this test pass?
 
-Well, I suppose we could update the to_char_code method as follows:
+Well, I suppose we could update the to\_char\_code method as follows:
 
 ```
   def to_char_code
@@ -644,7 +646,7 @@ need to take a whole word, for example 'Ruby', and convert it to an array of
 character codes.
 
 For example, Ruby should equal [82, 117, 98, 121].  Let's go update our test.
-Pop on over to the spec file, spec/binary_ipsum_spec.rb.  Now, we will add a
+Pop on over to the spec file, spec/binary\_ipsum\_spec.rb.  Now, we will add a
 new test:
 
 ```
@@ -764,7 +766,7 @@ SWEET!  Both tests are green.  Do you know what time it is?  No, not literally.
 We have gone from Red to Green.  Now it is time to refactor!
 
 The first thing I think we should try is to tighten up our code that we just
-created in the to_char_codes method.  The nice thing about having our tests
+created in the to\_char\_codes method.  The nice thing about having our tests
 green at the moment is that we can feel confident about trying out changes to
 our code.  Try to improve things.  
 
@@ -793,7 +795,7 @@ NICE!  Still green.
 
 
 Before we commit our changes, I'd like to do a little more clean up.  Do we 
-really need to methods here?  I think we can get by with just one.  But we
+really need two methods here?  I think we can get by with just one.  But we
 will need to make a small modification to both our class and our test files.
 
 
@@ -866,10 +868,10 @@ normal number to binary?  Let's review what we covered earlier:
 
 With our little guide above, let's manually convert 'Ruby' to binary.
 
-R = 82  =  01010010
-u = 117 =  01110101
-b = 98  =  01100010
-y = 121 =  01111001
+  - R = 82  =  01010010
+  - u = 117 =  01110101
+  - b = 98  =  01100010
+  - y = 121 =  01111001
 
 Very good!  Now it is time for that next test - to the Bat Mobile!
 
@@ -907,7 +909,7 @@ Finished in 0.00153 seconds (files took 0.1465 seconds to load)
 ```
 
 
-Let's try a real test.  Update your spec/binary_ipsum_spec.rb file with:
+Let's try a real test.  Update your spec/binary\_ipsum\_spec.rb file with:
 
 ```
   describe "converts a string to binary" do
@@ -953,7 +955,7 @@ own.  I'll be back soon.
 
 
 
-Figure it out?  First we need to add the missing missing/undefined method:
+Figure it out?  First we need to add the missing/undefined method:
 
 ```
   def to_binary
@@ -1011,7 +1013,7 @@ Save the Gemfile and run bundle:
 bundle install
 ```
 
-Now, back in our class file, binary_ipsum.rb, in the to_binary method, add:
+Now, back in our class file, binary\_ipsum.rb, in the to\_binary method, add:
 
 ```
 require 'pry'; binding.pry
@@ -1019,8 +1021,11 @@ require 'pry'; binding.pry
 
 Save the file and run the test suite.
 
-***REVISIT THIS PART REGARDING PRY***
 
+
+----
+***REVISIT THIS PART REGARDING PRY***
+----
 
 
 Ok, let's take a crack at solving this bit of code:
@@ -1142,7 +1147,7 @@ leave you with is: which version of this method is more readable for you?
 
 
 There is one last change that I would like to make before we move on.  I'm not
-a fan of using the instance variable @lorem_string in the to_char_codes method.
+a fan of using the instance variable @lorem\_string in the to\_char\_codes method.
 How can we fix this?
 
 ```
@@ -1160,7 +1165,7 @@ How can we fix this?
 
 
 Now we will we test a more complicated example - an actual Lorem Ipsum based
-sentence.  Update your binary_ipsum_spec.rb file with this new test:
+sentence.  Update your binary\_ipsum\_spec.rb file with this new test:
 
 ```
   describe "converts a string of Lorem Ipsum to binary" do
@@ -1212,6 +1217,7 @@ That binary value is the character code for a space.  What is the decimal equiva
 
 
 Yes, it is:  32
+
 [Resource: https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=ascii+code+for+space]
 
 
@@ -1255,17 +1261,186 @@ For example, right now our initialize our object using:
 my_string = BinaryIpsum.new("Ruby")
 
 But I would like to add some flexibility so that we can do the following:
+
+```
 random_string = BinaryIpsum.new(random: true, sentences: 5)
+```
 
 
-**NOTE: I've sketched the solution out but need to work on the dialog**
-        --> I have not created the test(s) yet ***
+For the sake of saving some time, I'm going to craft the following tests quickly:
+
+```
+  describe "allows user to create a random lorem ipsum sentence and convert to binary" do
+    xit "returns the binary representation of a random lorem ipsum string when using random true attribute" do
+      lorem_string = BinaryIpsum.new(random: true)
+    end
+
+    xit "returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences" do
+      lorem_string = BinaryIpsum.new(random: true, sentences: 5)
+    end
+
+    xit "returns the binary representation of the string Ruby if no parameters are passed " do
+      lorem_string = BinaryIpsum.new()
+    end
+  end
+```
+
+As you can see, I have the 'x' prepended to each 'it' line.  I've roughed out what
+I think will be good tests to cover our requirement of being able to do:
+
+```
+random_string = BinaryIpsum.new(random: true, sentences: 5)
+```
+
+
+Ok, let's start with the easy one.  We have already tested what the output 
+should look like for 'Ruby' so update the third 'xit' test as follows:
+
+```
+ it "returns the binary representation of the string Ruby if no parameters are passed " do
+   lorem_string = BinaryIpsum.new()
+   expect(lorem_string.to_binary).to eq "01010010 01110101 01100010 01111001"
+ end
+```
+
+You know the drill by now, run the test. 
+
+```
+bundle exec rspec spec/binary_ipsum_spec.rb:34
+```
+
+Unless you jumped ahead, you should be staring at a failure:
+
+```
+Failures:
+
+  1) BinaryIpsum allows user to create a random lorem ipsum sentence and convert to binary returns the binary representation of the string Ruby if no parameters are passed
+     Failure/Error: lorem_string = BinaryIpsum.new()
+
+     ArgumentError:
+       wrong number of arguments (0 for 1)
+     # ./binary_ipsum.rb:6:in `initialize'
+     # ./spec/binary_ipsum_spec.rb:46:in `new'
+     # ./spec/binary_ipsum_spec.rb:46:in `block (3 levels) in <top (required)>'
+
+Finished in 0.00077 seconds (files took 0.12384 seconds to load)
+3 examples, 1 failure, 2 pending
+```
+
+*NOTE:  I grabbed only the Failure part of the output in this example to save some space.*
+
+
+To make this test pass, we need to make some changes in our class file.  From the
+error message, do you see where we could make the needed change?
+
+Exactly!  In the initialize method.
+
+
+But before we jump into editting the binary_ipsum.rb file, I want to take a quick
+detour and check something out in irb.
+
+```
+➜  binary_ipsum git:(master) ✗ irb
+ :001 > require 'faker'
+true
+ :002 > Faker::Lorem.sentences(4).join(' ')
+"Quia architecto incidunt reprehenderit. Eos similique amet praesentium odit distinctio pariatur iste. Aut magni quia. Sunt et nesciunt molestiae aut commodi."
+ :003 > exit
+➜  binary_ipsum git:(master) ✗
+```
+
+
+Ok, now you can go edit the initialize method in the binary_ipsum.rb file:
+
+```
+  def initialize(string: 'Ruby', random: false, sentences: 5)
+    return @lorem_string = Faker::Lorem.sentences(sentences).join(' ') if random
+    @lorem_string = string
+  end
+```
+
+I know you are itching to do it - go ahead, re-run the tests:
+
+
+```
+bundle exec rspec spec/binary_ipsum_spec.rb:34
+
+➜  binary_ipsum git:(master) ✗ bundle exec rspec spec/binary_ipsum_spec.rb:34
+Run options: include {:locations=>{"./spec/binary_ipsum_spec.rb"=>[34]}}
+
+BinaryIpsum
+  allows user to create a random lorem ipsum sentence and convert to binary
+    returns the binary representation of a random lorem ipsum string when using random true attribute (PENDING: Temporarily skipped with xit)
+    returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences (PENDING: Temporarily skipped with xit)
+    returns the binary representation of the string Ruby if no parameters are passed
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) BinaryIpsum allows user to create a random lorem ipsum sentence and convert to binary returns the binary representation of a random lorem ipsum string when using random true attribute
+     # Temporarily skipped with xit
+     # ./spec/binary_ipsum_spec.rb:35
+
+  2) BinaryIpsum allows user to create a random lorem ipsum sentence and convert to binary returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences
+     # Temporarily skipped with xit
+     # ./spec/binary_ipsum_spec.rb:40
+
+
+Finished in 0.00126 seconds (files took 0.12035 seconds to load)
+3 examples, 0 failures, 2 pending
+
+➜  binary_ipsum git:(master) ✗
+```
+
+Nicely done!  Now all we need to do is tackle those last two tests.  Update your 
+spec file with the following changes:
+
+```
+  describe "allows user to create a random lorem ipsum sentence and convert to binary" do
+    it "returns the binary representation of a random lorem ipsum string when using random true attribute" do
+      lorem_string = BinaryIpsum.new(random: true)
+      expect(lorem_string.to_binary).to include("0100000") 
+    end
+
+    it "returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences" do
+      lorem_string = BinaryIpsum.new(random: true, sentences: 5)
+      expect(lorem_string.to_binary).to include("0100000")  
+    end
+
+ end
+
+```
+
+NOTE:  You may recall what 01000000 represents - a space.  Because we are generating
+       random sentence(s) it is a bit difficult to predict what the output will be.
+       But we do know that there will be spaces between words so we will hone in
+       on that information to help us out for now.
+
+       I would like to have a better test for the above two items, but at this
+       time, I am not sure how to do something better.  Any suggestions?
+
+
+Save your changes, and run the tests:
+
+```
+➜  binary_ipsum git:(master) ✗ bundle exec rspec spec/binary_ipsum_spec.rb:34
+Run options: include {:locations=>{"./spec/binary_ipsum_spec.rb"=>[34]}}
+
+BinaryIpsum
+  allows user to create a random lorem ipsum sentence and convert to binary
+    returns the binary representation of a random lorem ipsum string when using random true attribute
+    returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences
+    returns the binary representation of the string Ruby if no parameters are passed
+
+Finished in 0.43669 seconds (files took 0.12584 seconds to load)
+3 examples, 0 failures
+
+➜  binary_ipsum git:(master) ✗
+```
+
+**NICE!**
 
 
 
-
-
-Sum up with the following near the conclusion.
 Now while we tackled this problem in a nice programatic manner, there is, of course,
 another way. 
 
@@ -1302,11 +1477,42 @@ As a quick test, fire up irb and try out the following:
 Resource:  http://blog.anidear.com/2011/11/convert-string-to-binary-in-ruby.html
 
 
+# What's Next?
+
+Here is my challenge to you.  There are two things that I noticed while we were
+working on our BinaryIpsum solution.
+
+  -  1.  Convert the binary for a 'space' to a colon (:) or something similar
+  -  2.  Make a command line tool based off of our solution, with text based help (--h)
 
 
-# TOOLS USED
-Ruby   2.2.3
-RSpec  3.4.0
-Faker  1.6
-Vim
-Asciinema  (https://asciinema.org)
+
+# MISC
+  -  Twitter/GitHub:  HoGiHung
+  -  Blog:            http://ognt.io  -OR- http://oldguynewtrick.com/
+  -  Asciinema:       https://asciinema.org
+
+
+# EXTRA - A Example Via Irb
+
+```
+➜  binary_ipsum git:(master) ✗ irb
+ :001 > require './binary_ipsum'
+true
+ :002 > three_sent = BinaryIpsum.new(random: true, sentences: 3)
+#<BinaryIpsum:0x007fb1918c1c30 @lorem_string="Architecto pariatur accusamus rem. Hic eum autem corporis assumenda corrupti inventore placeat. Commodi nostrum est ipsa suscipit dolores earum nobis.">
+ :003 > four_sent = BinaryIpsum.new(random: true, sentences: 4)
+#<BinaryIpsum:0x007fb192288f48 @lorem_string="Odio perspiciatis molestiae. Natus repellendus corporis. Quia commodi quos quia excepturi rerum in. Eum quisquam modi quae neque consequuntur cumque.">
+ :004 >
+ :005 >
+ :006 >   three_sent.to_binary
+"01000001 01110010 01100011 01101000 01101001 01110100 01100101 01100011 01110100 01101111 0100000 01110000 01100001 01110010 01101001 01100001 01110100 01110101 01110010 0100000 01100001 01100011 01100011 01110101 01110011 01100001 01101101 01110101 01110011 0100000 01110010 01100101 01101101 0101110 0100000 01001000 01101001 01100011 0100000 01100101 01110101 01101101 0100000 01100001 01110101 01110100 01100101 01101101 0100000 01100011 01101111 01110010 01110000 01101111 01110010 01101001 01110011 0100000 01100001 01110011 01110011 01110101 01101101 01100101 01101110 01100100 01100001 0100000 01100011 01101111 01110010 01110010 01110101 01110000 01110100 01101001 0100000 01101001 01101110 01110110 01100101 01101110 01110100 01101111 01110010 01100101 0100000 01110000 01101100 01100001 01100011 01100101 01100001 01110100 0101110 0100000 01000011 01101111 01101101 01101101 01101111 01100100 01101001 0100000 01101110 01101111 01110011 01110100 01110010 01110101 01101101 0100000 01100101 01110011 01110100 0100000 01101001 01110000 01110011 01100001 0100000 01110011 01110101 01110011 01100011 01101001 01110000 01101001 01110100 0100000 01100100 01101111 01101100 01101111 01110010 01100101 01110011 0100000 01100101 01100001 01110010 01110101 01101101 0100000 01101110 01101111 01100010 01101001 01110011 0101110"
+ :007 >
+ :008 >
+ :009 >   four_sent.to_binary
+"01001111 01100100 01101001 01101111 0100000 01110000 01100101 01110010 01110011 01110000 01101001 01100011 01101001 01100001 01110100 01101001 01110011 0100000 01101101 01101111 01101100 01100101 01110011 01110100 01101001 01100001 01100101 0101110 0100000 01001110 01100001 01110100 01110101 01110011 0100000 01110010 01100101 01110000 01100101 01101100 01101100 01100101 01101110 01100100 01110101 01110011 0100000 01100011 01101111 01110010 01110000 01101111 01110010 01101001 01110011 0101110 0100000 01010001 01110101 01101001 01100001 0100000 01100011 01101111 01101101 01101101 01101111 01100100 01101001 0100000 01110001 01110101 01101111 01110011 0100000 01110001 01110101 01101001 01100001 0100000 01100101 01111000 01100011 01100101 01110000 01110100 01110101 01110010 01101001 0100000 01110010 01100101 01110010 01110101 01101101 0100000 01101001 01101110 0101110 0100000 01000101 01110101 01101101 0100000 01110001 01110101 01101001 01110011 01110001 01110101 01100001 01101101 0100000 01101101 01101111 01100100 01101001 0100000 01110001 01110101 01100001 01100101 0100000 01101110 01100101 01110001 01110101 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01110101 01101110 01110100 01110101 01110010 0100000 01100011 01110101 01101101 01110001 01110101 01100101 0101110"
+ :010 > exit
+➜  binary_ipsum git:(master) ✗
+```
+
+**THE END**
