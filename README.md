@@ -261,27 +261,7 @@ Behind the scenes, those letters have a decimal representation.  For example:
   - y = 121
 
 
-```
-➜  ~ irb
-2.2.3 :001 > example_word = "Ruby"
-"Ruby"
-2.2.3 :002 > example_word.chars.each do |ltr|
-2.2.3 :003 >     puts ltr.ord
-2.2.3 :004?>   end
-82
-117
-98
-121
-[
-    [0] "R",
-    [1] "u",
-    [2] "b",
-    [3] "y"
-]
-2.2.3 :005 >
-```
-
-*Note:  I took a little short cut above.  The long form way would be:*
+### Example via irb
 
 ```
  :001 > example_word = "Ruby"
@@ -306,17 +286,29 @@ Behind the scenes, those letters have a decimal representation.  For example:
     [2] "b",
     [3] "y"
 ]
- :006 > example_word
+```
+
+
+
+
+```
+➜  ~ irb
+2.2.3 :001 > example_word = "Ruby"
 "Ruby"
- :007 > example_word.chars
+2.2.3 :002 > example_word.chars.each do |ltr|
+2.2.3 :003 >     puts ltr.ord
+2.2.3 :004?>   end
+82
+117
+98
+121
 [
     [0] "R",
     [1] "u",
     [2] "b",
     [3] "y"
 ]
- :008 >
-
+2.2.3 :005 >
 ```
 
 
@@ -769,6 +761,15 @@ our code.  Try to improve things.
   end
 ```
 
+*TIP: You can shorten the above line even more!*
+
+```
+  def to_char_codes
+    @lorem_string.chars.map(&:ord)
+  end
+```
+
+
 With the new code in place, re-run our tests:
 
 ```
@@ -990,36 +991,6 @@ rspec ./spec/binary_ipsum_spec.rb:20 # BinaryIpsum converts a string to binary r
 
 New error == progress.  Time to make this puppy pass!
 
-
-I think now would be a great time to bring in a nice tool from our toolbox - pry.
-
-Update the Gemfile with the following:
-
-```
-gem 'pry'
-```
-
-Save the Gemfile and run bundle:
-
-```
-bundle install
-```
-
-Now, back in our class file, binary\_ipsum.rb, in the to\_binary method, add:
-
-```
-require 'pry'; binding.pry
-```
-
-Save the file and run the test suite.
-
-
-
-----
-***REVISIT THIS PART REGARDING PRY***
-----
-
-
 Ok, let's take a crack at solving this bit of code:
 
 ```
@@ -1032,6 +1003,15 @@ Ok, let's take a crack at solving this bit of code:
     end
     result.join(' ')
   end
+```
+
+*Note:  Using the method to_s(2) might be new to you.  You can read more about
+        this approach by visiting:*
+
+```
+http://ruby-doc.org/core-2.2.2/Fixnum.html#method-i-to_s     
+
+See part about using a base:  to_s(base=10)->string
 ```
 
 
@@ -1067,7 +1047,6 @@ rspec ./spec/binary_ipsum_spec.rb:20 # BinaryIpsum converts a string to binary r
 ```
 
 
-
 Not there yet, but very close.  Do you see/understand what the problem is? Correct,
 our binary's that normaly start with a zero are truncated.
 
@@ -1087,9 +1066,14 @@ Let's take another crack at it:
 
 
   def zero_pad(binary_value)
-    return "0" + binary_value if binary_value.length < 8
-    binary_value
+    binary_value.rjust(8,'0')
   end
+```
+
+*Note: For more information on the rjust method, see the following resource:*
+
+```
+https://ruby-doc.org/core-2.2.3/String.html#method-i-rjust
 ```
 
 
@@ -1138,6 +1122,16 @@ I know, not a HUGE difference, but it is a reduction.  The question I want to
 leave you with is: which version of this method is more readable for you?
 
 
+*TIP: We could improve the to_binary method just a tad more:*
+
+```
+  def to_binary
+    binary_sentence = self.to_char_codes.map { |int| zero_pad(int.to_s(2)) }
+    binary_sentence.join(' ')
+  end
+```
+
+
 There is one last change that I would like to make before we move on.  I'm not
 a fan of using the instance variable @lorem\_string in the to\_char\_codes method.
 How can we fix this?
@@ -1151,6 +1145,14 @@ How can we fix this?
     lorem_string.chars.map { |ltr| ltr.ord }
   end
 ```
+
+Now that we have refactored and have our tests passing, let's commit our changes:
+
+```
+git add .
+git commit -m 'Refactored, all tests are green.  New method, to_binary was created.'
+```
+
 
 
 # Pulling it all together, bring in Lorem Ipsum
@@ -1169,7 +1171,7 @@ sentence.  Update your binary\_ipsum\_spec.rb file with this new test:
 ```
 
 In the interest of saving time, run the test and I want you to focus on this
-value in the output:  0100000
+value in the output:  00100000
 
 
 ```
@@ -1186,7 +1188,7 @@ Failures:
      Failure/Error: expect(lorem_string.to_binary).to eq "xxxxxxxx"  # Note this is fake for now
 
        expected: "xxxxxxxx"
-            got: "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 0100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 0100000 01100101 01101001 01110101 01110011 0101110"
+            got: "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 00100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 00100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 00100000 01100101 01101001 01110101 01110011 00101110"
 
        (compared using ==)
      # ./spec/binary_ipsum_spec.rb:30:in `block (3 levels) in <top (required)>'
@@ -1203,7 +1205,7 @@ rspec ./spec/binary_ipsum_spec.rb:28 # BinaryIpsum converts a string of Lorem Ip
 
 
 If I am correct, that value will show up three times. Anyone know what a binary
-value of 01000000 represents?
+value of 00100000 represents?
 
 That binary value is the character code for a space.  What is the decimal equivalent?
 
