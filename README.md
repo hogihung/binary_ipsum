@@ -181,7 +181,6 @@ quick look at our directory and file structure as it is right now:
 .
 ├── Gemfile
 ├── Gemfile.lock
-├── README.md
 └── spec
     └── spec_helper.rb
 
@@ -199,7 +198,6 @@ touch spec/binary_ipsum_spec.rb
 .
 ├── Gemfile
 ├── Gemfile.lock
-├── README.md
 └── spec
     ├── binary_ipsum_spec.rb
     └── spec_helper.rb
