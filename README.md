@@ -229,7 +229,7 @@ as a git repo and commit what we have so far:
 
 ```
 touch .gitignore
-echo '**/.DS_Store' > .gitignore    # You should only need this step if you are on a Mac
+echo '**/.DS_Store' >> .gitignore    # You should only need this step if you are on a Mac
 
 git init
 git add .
