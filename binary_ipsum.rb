@@ -19,8 +19,7 @@ class BinaryIpsum
   end
 
   def zero_pad(binary_value)
-    return "0" + binary_value if binary_value.length < 8
-    binary_value
+    binary_value.rjust(8,'0')
   end
 
 end
