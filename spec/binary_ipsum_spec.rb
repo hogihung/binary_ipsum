@@ -27,24 +27,26 @@ RSpec.describe BinaryIpsum do
   describe "converts a string of Lorem Ipsum to binary" do
     it "returns binary representation for a lorem ipsum string" do
       lorem_string = BinaryIpsum.new(string: "Sapiente consequatur aperiam eius.")
-      expect(lorem_string.to_binary).to eq "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 0100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 0100000 01100101 01101001 01110101 01110011 0101110"
+      expect(lorem_string.to_binary).to eq "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 00100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 00100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 00100000 01100101 01101001 01110101 01110011 00101110"
     end
   end
 
-  describe "allows user to create a random lorem ipsum sentence and convert to binary" do
-    it "returns the binary representation of a random lorem ipsum string when using random true attribute" do
-      lorem_string = BinaryIpsum.new(random: true)
-      expect(lorem_string.to_binary).to include("0100000")
+  describe "allows user to create a random lorem ipsum sentence" do
+    it "returns a random lorem ipsum string when using random true attribute" do
+      string = BinaryIpsum.new(random: true)
+      expect(string.lorem_string).to_not eq "Ruby"
+      expect(string.lorem_string).not_to be_empty
     end
 
-    it "returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences" do
-      lorem_string = BinaryIpsum.new(random: true, sentences: 5)
-      expect(lorem_string.to_binary).to include("0100000")
+    it "returns a random lorem ipsum string of 7 sentences when using random true attribute and specifying number of sentences" do
+      string = BinaryIpsum.new(random: true, sentences: 7)
+      sentences = string.lorem_string.split('.')
+      expect(sentences.count).to eq 7
     end
 
-    it "returns the binary representation of the string Ruby if no parameters are passed " do
-      lorem_string = BinaryIpsum.new()
-      expect(lorem_string.to_binary).to eq "01010010 01110101 01100010 01111001"
+    it "returns the string Ruby if no parameters are passed " do
+      string_ruby = BinaryIpsum.new()
+      expect(string_ruby.lorem_string).to eq "Ruby"
     end
   end
 
