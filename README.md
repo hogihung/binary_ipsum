@@ -287,7 +287,7 @@ Behind the scenes, those letters have a decimal representation.  For example:
 ```
 
 
-
+Below is another approach to what we did above, but with less code:
 
 ```
 ➜  ~ irb
