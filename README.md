@@ -330,7 +330,7 @@ notation back in my Cisco (routers/switches) days.
 255 =   1   1   1   1  |  1  1  1  1
 ```
 
-The pipe charcter is not needed, it just helps me visualize the seperation of
+The pipe charcter is not needed, it just helps me visualize the separation of
 the first four bits from the second four bits.
 
 With the above example present, can anyone tell me which bits should be on (1)
