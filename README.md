@@ -1262,17 +1262,22 @@ random_string = BinaryIpsum.new(random: true, sentences: 5)
 For the sake of saving some time, I'm going to craft the following tests quickly:
 
 ```
-  describe "allows user to create a random lorem ipsum sentence and convert to binary" do
-    xit "returns the binary representation of a random lorem ipsum string when using random true attribute" do
-      lorem_string = BinaryIpsum.new(random: true)
+  describe "allows user to create a random lorem ipsum sentence" do
+    xit "returns a random lorem ipsum string when using random true attribute" do
+      string = BinaryIpsum.new(random: true)
+      expect(string.lorem_string).to_not eq "Ruby"
+      expect(string.lorem_string).not_to be_empty
     end
 
-    xit "returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences" do
-      lorem_string = BinaryIpsum.new(random: true, sentences: 5)
+    xit "returns a random lorem ipsum string of 7 sentences when using random true attribute and specifying number of sentences" do
+      string = BinaryIpsum.new(random: true, sentences: 7)
+      sentences = string.lorem_string.split('.')
+      expect(sentences.count).to eq 7
     end
 
-    xit "returns the binary representation of the string Ruby if no parameters are passed " do
-      lorem_string = BinaryIpsum.new()
+    xit "returns the string Ruby if no parameters are passed " do
+      string_ruby = BinaryIpsum.new()
+      expect(string_ruby.lorem_string).to eq "Ruby"
     end
   end
 ```
@@ -1289,9 +1294,9 @@ Ok, let's start with the easy one.  We have already tested what the output
 should look like for 'Ruby' so update the third 'xit' test as follows:
 
 ```
- it "returns the binary representation of the string Ruby if no parameters are passed " do
-   lorem_string = BinaryIpsum.new()
-   expect(lorem_string.to_binary).to eq "01010010 01110101 01100010 01111001"
+ it "returns the string Ruby if no parameters are passed " do
+   string_ruby = BinaryIpsum.new()
+   expect(string_ruby.lorem_string).to eq "Ruby"
  end
 ```
 
@@ -1306,7 +1311,7 @@ Unless you jumped ahead, you should be staring at a failure:
 ```
 Failures:
 
-  1) BinaryIpsum allows user to create a random lorem ipsum sentence and convert to binary returns the binary representation of the string Ruby if no parameters are passed
+  1) BinaryIpsum allows user to create a random lorem ipsum sentence and convert to binary returns the the string Ruby if no parameters are passed
      Failure/Error: lorem_string = BinaryIpsum.new()
 
      ArgumentError:
@@ -1339,6 +1344,9 @@ true
 "Quia architecto incidunt reprehenderit. Eos similique amet praesentium odit distinctio pariatur iste. Aut magni quia. Sunt et nesciunt molestiae aut commodi."
  :003 > exit
 ➜  binary_ipsum git:(master) ✗
+
+
+Resource: https://github.com/stympy/faker#fakerlorem 
 ```
 
 
@@ -1349,6 +1357,9 @@ Ok, now you can go edit the initialize method in the binary_ipsum.rb file:
     return @lorem_string = Faker::Lorem.sentences(sentences).join(' ') if random
     @lorem_string = string
   end
+
+
+Resource for Keyword Arguments: http://www.justinweiss.com/articles/fun-with-keyword-arguments/
 ```
 
 I know you are itching to do it - go ahead, re-run the tests:
@@ -1386,29 +1397,25 @@ Finished in 0.00126 seconds (files took 0.12035 seconds to load)
 Nicely done!  Now all we need to do is tackle those last two tests.  Update your 
 spec file with the following changes:
 
-```
-  describe "allows user to create a random lorem ipsum sentence and convert to binary" do
-    it "returns the binary representation of a random lorem ipsum string when using random true attribute" do
-      lorem_string = BinaryIpsum.new(random: true)
-      expect(lorem_string.to_binary).to include("0100000") 
-    end
-
-    it "returns the binary representation of a random lorem ipsum string when using random true attribute and specifying number of sentences" do
-      lorem_string = BinaryIpsum.new(random: true, sentences: 5)
-      expect(lorem_string.to_binary).to include("0100000")  
-    end
-
- end
 
 ```
+  describe "allows user to create a random lorem ipsum sentence" do
+    it "returns a random lorem ipsum string when using random true attribute" do
+      string = BinaryIpsum.new(random: true)
+      expect(string.lorem_string).to_not eq "Ruby"
+      expect(string.lorem_string).not_to be_empty
+    end
 
-NOTE:  You may recall what 01000000 represents - a space.  Because we are generating
-       random sentence(s) it is a bit difficult to predict what the output will be.
-       But we do know that there will be spaces between words so we will hone in
-       on that information to help us out for now.
+    it "returns a random lorem ipsum string of 7 sentences when using random true attribute and specifying number of sentences" do
+      string = BinaryIpsum.new(random: true, sentences: 7)
+      sentences = string.lorem_string.split('.')
+      expect(sentences.count).to eq 7
+    end
 
-       I would like to have a better test for the above two items, but at this
-       time, I am not sure how to do something better.  Any suggestions?
+    {-- snip --}
+
+  end
+```
 
 
 Save your changes, and run the tests:
@@ -1446,6 +1453,16 @@ rspec ./spec/binary_ipsum_spec.rb:14 # BinaryIpsum string convert to character c
 rspec ./spec/binary_ipsum_spec.rb:21 # BinaryIpsum converts a string to binary returns binary representation for a submitted string
 rspec ./spec/binary_ipsum_spec.rb:28 # BinaryIpsum converts a string of Lorem Ipsum to binary returns binary representation for a lorem ipsum string
 ```
+
+    Note:  You may have noticed that I used a slightly different format above to
+           run the tests:  be rspec spec/
+
+           I can do this because I have created an alias in my .zshrc.local file:
+           alias be='bundle exec'
+
+           You can do the same in a .bashrc.local file.
+
+
 
 **CRAP!**  What happened?
 
