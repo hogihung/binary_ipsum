@@ -871,6 +871,7 @@ Let's add a new test.  Below is the rough and dirty of it:
 ```
   describe "converts a string to binary" do
     xit "returns binary representation for a submitted string" do
+    end
   end
 ```
 
@@ -1046,7 +1047,7 @@ rspec ./spec/binary_ipsum_spec.rb:20 # BinaryIpsum converts a string to binary r
 
 
 Not there yet, but very close.  Do you see/understand what the problem is? Correct,
-our binary's that normaly start with a zero are truncated.
+our binaries that normaly start with a zero are truncated.
 
 Let's take another crack at it:
 
@@ -1221,7 +1222,7 @@ interest of saving some time.
   describe "converts a string of Lorem Ipsum to binary" do
     it "returns binary representation for a lorem ipsum string" do
       lorem_string = BinaryIpsum.new("Sapiente consequatur aperiam eius.")
-      expect(lorem_string.to_binary).to eq "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 0100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 0100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 0100000 01100101 01101001 01110101 01110011 0101110"
+      expect(lorem_string.to_binary).to eq "01010011 01100001 01110000 01101001 01100101 01101110 01110100 01100101 00100000 01100011 01101111 01101110 01110011 01100101 01110001 01110101 01100001 01110100 01110101 01110010 00100000 01100001 01110000 01100101 01110010 01101001 01100001 01101101 00100000 01100101 01101001 01110101 01110011 00101110"
     end
   end
 ```
@@ -1350,9 +1351,11 @@ Resource: https://github.com/stympy/faker#fakerlorem
 ```
 
 
-Ok, now you can go edit the initialize method in the binary_ipsum.rb file:
+Ok, now you can add faker and go edit the initialize method in the binary_ipsum.rb file:
 
 ```
+  require 'faker'     # don't forget to add faker after your Class BinaryIpsum
+
   def initialize(string: 'Ruby', random: false, sentences: 5)
     return @lorem_string = Faker::Lorem.sentences(sentences).join(' ') if random
     @lorem_string = string
