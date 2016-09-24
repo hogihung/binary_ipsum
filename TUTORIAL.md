@@ -1,44 +1,14 @@
-# BINARY IPSUM
+# BINARY IPSUM TUTORIAL
 
 
-### REQUIRMENTS:
-
-  1.  Ruby   2.3.0  (please have this version or greater already installed)
-  2.  RSpec  3.4.0  (we will install during the workshop if you need it)
-  3.  Faker  1.6    (we will install during the workshop if you need it)
-
-
-### Before you begin, confirm you have Ruby and RSpec installed
+### Before you begin, confirm you have Ruby installed
 
 ```
 ruby -v
-gem list | grep rspec
 
 Example:
 ➜  LEARNING_NOTES ruby -v
-ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
-➜  LEARNING_NOTES gem list | grep rspec
-guard-rspec (4.7.3, 2.5.4)
-rspec (3.4.0, 3.2.0, 3.1.0, 2.99.0)
-rspec-collection_matchers (1.1.2)
-rspec-core (3.4.4, 3.4.1, 3.2.3, 3.1.7, 2.99.2, 2.14.5)
-rspec-expectations (3.4.0, 3.2.1, 3.1.2, 2.99.2, 2.14.2)
-rspec-fire (1.2.0)
-rspec-mocks (3.4.1, 3.4.0, 3.2.1, 3.1.3, 2.99.4, 2.14.3)
-rspec-rails (3.4.2, 3.4.0, 3.1.0, 2.99.0)
-rspec-support (3.4.1, 3.2.2, 3.1.2)
-spring-commands-rspec (1.0.4)
-➜  LEARNING_NOTES
-```
-
-
-```
-TIP:  To limit the output of grepping for rspec, try this:
-      gem list | egrep '^rspec '
-
-      ➜  binary_ipsum git:(master) ✗ gem list | egrep '^rspec '
-      rspec (3.4.0, 3.2.0, 3.1.0, 2.99.0)
-      ➜  binary_ipsum git:(master) ✗
+ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin14]
 ```
 
 If you do not have RSpec installed, you can either add it now, or grab it with
@@ -51,6 +21,14 @@ gem install rspec
 # Resource:  https://relishapp.com/rspec/docs/gettingstarted
 ```
 
+```
+TIP:  To limit the output of grepping for rspec, try this:
+      gem list | egrep '^rspec '
+
+      ➜  binary_ipsum git:(master) ✗ gem list | egrep '^rspec '
+      rspec (3.4.0, 3.2.0, 3.1.0, 2.99.0)
+      ➜  binary_ipsum git:(master) ✗
+```
 
 ## Create our new project: Binary Ipsum
 
