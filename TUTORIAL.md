@@ -1312,45 +1312,23 @@ error message, do you see where we could make the needed change?
 Exactly!  In the initialize method.
 
 
-But before we jump into editting the binary_ipsum.rb file, I want to take a quick
-detour and check something out in irb.
 
 ```
-➜  binary_ipsum git:(master) ✗ irb
- :001 > require 'faker'
-true
- :002 > Faker::Lorem.sentences(4).join(' ')
-"Quia architecto incidunt reprehenderit. Eos similique amet praesentium odit distinctio pariatur iste. Aut magni quia. Sunt et nesciunt molestiae aut commodi."
- :003 > exit
-➜  binary_ipsum git:(master) ✗
-
-
-Resource: https://github.com/stympy/faker#fakerlorem 
-```
-
-
-Ok, now you can add faker and go edit the initialize method in the binary_ipsum.rb file:
-
-```
-  require 'faker'     # don't forget to add faker after your Class BinaryIpsum
+  # binary_ipsum.rb
 
   def initialize(string: 'Ruby', random: false, sentences: 5)
-    return @lorem_string = Faker::Lorem.sentences(sentences).join(' ') if random
     @lorem_string = string
   end
-
-
-Resource for Keyword Arguments: http://www.justinweiss.com/articles/fun-with-keyword-arguments/
 ```
 
 I know you are itching to do it - go ahead, re-run the tests:
 
 
 ```
-bundle exec rspec spec/binary_ipsum_spec.rb:34
+bundle exec rspec spec/binary_ipsum_spec.rb:33
 
-➜  binary_ipsum git:(master) ✗ bundle exec rspec spec/binary_ipsum_spec.rb:34
-Run options: include {:locations=>{"./spec/binary_ipsum_spec.rb"=>[34]}}
+➜  binary_ipsum git:(master) ✗ bundle exec rspec spec/binary_ipsum_spec.rb:33
+Run options: include {:locations=>{"./spec/binary_ipsum_spec.rb"=>[33]}}
 
 BinaryIpsum
   allows user to create a random lorem ipsum sentence and convert to binary
@@ -1398,6 +1376,36 @@ spec file with the following changes:
   end
 ```
 
+But before we jump into editting the binary_ipsum.rb file, I want to take a quick
+detour and check something out in irb.
+
+```
+➜  binary_ipsum git:(master) ✗ irb
+ :001 > require 'faker'
+true
+ :002 > Faker::Lorem.sentences(4).join(' ')
+"Quia architecto incidunt reprehenderit. Eos similique amet praesentium odit distinctio pariatur iste. Aut magni quia. Sunt et nesciunt molestiae aut commodi."
+ :003 > exit
+➜  binary_ipsum git:(master) ✗
+
+
+Resource: https://github.com/stympy/faker#fakerlorem 
+```
+
+
+Ok, now you can add faker and go edit the initialize method in the binary_ipsum.rb file:
+
+```
+  require 'faker'     # don't forget to add faker after your Class BinaryIpsum
+
+  def initialize(string: 'Ruby', random: false, sentences: 5)
+    return @lorem_string = Faker::Lorem.sentences(sentences).join(' ') if random
+    @lorem_string = string
+  end
+
+
+Resource for Keyword Arguments: http://www.justinweiss.com/articles/fun-with-keyword-arguments/
+```
 
 Save your changes, and run the tests:
 
