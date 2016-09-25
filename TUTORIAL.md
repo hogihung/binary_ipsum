@@ -1282,7 +1282,7 @@ should look like for 'Ruby' so update the third 'xit' test as follows:
 You know the drill by now, run the test. 
 
 ```
-bundle exec rspec spec/binary_ipsum_spec.rb:34
+bundle exec rspec spec/binary_ipsum_spec.rb:33
 ```
 
 Unless you jumped ahead, you should be staring at a failure:
