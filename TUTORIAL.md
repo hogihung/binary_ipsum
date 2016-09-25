@@ -1566,4 +1566,50 @@ true
 ➜  binary_ipsum git:(master) ✗
 ```
 
+
+
+## VIDEOS THAT WALK THROUGH WHAT WE HAVE DONE:
+
+001 Create Project Directory, initialize, bundle, configure RSpec
+    https://asciinema.org/a/cfk3m2dietodofndm6fqbgezw
+    asciinema play asciicast-86969.json
+
+002 Create a spec file and initialize a git based repo
+    https://asciinema.org/a/9o51qmgnjyho5oabqvxc7al72
+
+003 First test set to pending, create the BinaryIpsum class
+    https://asciinema.org/a/2tj4h03koys3lui8zh59vsuez
+
+004 First test, string_to_char_code, is passing
+    https://asciinema.org/a/06hn7uegbwvtmtjbfwycv1kep
+
+005 Second test passing, refactored to have to_char_codes method
+    https://asciinema.org/a/9wmwro0qlvevg0229zko45hpl
+
+006 Implement the to_binary method, small refactoring
+    https://asciinema.org/a/4h4c7kgzwkajp28fchdfpxnhw
+
+007 Introducing a string of Lorem Ipsum and a new test
+    https://asciinema.org/a/19ldgm4vf7h6punz8kr6a233l
+
+008 Create pending tests for random lorem ipsum
+    https://asciinema.org/a/59neav7yu9s4ulj0anmw1eq4q
+
+009 Get simple test passing - one for 'Ruby'
+    https://asciinema.org/a/2k5cy5icps0612zzt7geq05ai
+
+010 Get Lorem Ipsum random tests working
+    https://asciinema.org/a/ce09n9pn1tgj724qgyzmvyg8u
+
+011 Run the full test suite (oh no! what happened?)
+    https://asciinema.org/a/3fft7se5gdvv5jvc1dk6hx9hi
+
+012 Wrap up code, all tests are green, commit our changes
+    https://asciinema.org/a/34w21z5nxi213bp11u9q7pkft
+
+013 But wait, there is more....
+    https://asciinema.org/a/5zc8kxlqqpms3uhdiue6q2y6v
+
+
+
 **THE END**
