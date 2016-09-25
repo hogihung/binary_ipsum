@@ -13,7 +13,7 @@
 If you are a Windows user, or do not want to mess with you current setup of how
 you have Ruby installed, you can use the following Vagrant VM:
 
-https://github.com/hogihung/vagrant_binary_ipsum
+https://github.com/hogihung/vagrant\_binary\_ipsum
 
 
     If you do not already have Vagrant installed along with VirtualBox (or VMWare,)
