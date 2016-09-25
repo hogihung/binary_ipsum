@@ -1572,7 +1572,6 @@ true
 
 001 Create Project Directory, initialize, bundle, configure RSpec
     https://asciinema.org/a/cfk3m2dietodofndm6fqbgezw
-    asciinema play asciicast-86969.json
 
 002 Create a spec file and initialize a git based repo
     https://asciinema.org/a/9o51qmgnjyho5oabqvxc7al72
