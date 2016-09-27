@@ -1,6 +1,109 @@
 # BINARY IPSUM TUTORIAL
 
 
+## Backstory
+
+Before moving forward I'd like to take a few minutes to discuss a possible approach
+to taking a Lorem Ipsum sentence and converting it to Binary.  Most of us humans
+do not normally converse in binary.  What exactly is binary?  How does it relate
+to the task at hand?
+
+In the simpliest term, we visualize binary as either 0 or 1.  Let's look at a word
+that is more familiar to us silly humans:  Ruby
+
+The word 'Ruby' is a collection/string of characters.  Those characters being:
+
+  **R, u, b and y**
+
+Behind the scenes, those letters have a decimal representation.  For example:
+
+  - R = 82
+  - u = 117 
+  - b = 98 
+  - y = 121
+
+
+### Example via irb
+
+```
+ :001 > example_word = "Ruby"
+"Ruby"
+ :002 > example_as_array = example_word.chars
+[
+    [0] "R",
+    [1] "u",
+    [2] "b",
+    [3] "y"
+]
+ :003 > example_as_array.each do |ltr|
+ :004 >     puts ltr.ord
+ :005?>   end
+82
+117
+98
+121
+[
+    [0] "R",
+    [1] "u",
+    [2] "b",
+    [3] "y"
+]
+```
+
+
+Below is another approach to what we did above, but with less code:
+
+```
+➜  ~ irb
+2.2.3 :001 > example_word = "Ruby"
+"Ruby"
+2.2.3 :002 > example_word.chars.each do |ltr|
+2.2.3 :003 >     puts ltr.ord
+2.2.3 :004?>   end
+82
+117
+98
+121
+[
+    [0] "R",
+    [1] "u",
+    [2] "b",
+    [3] "y"
+]
+2.2.3 :005 >
+```
+
+
+Ok, a quick review.  Above we saw the following:
+
+  - R = 82
+  - u = 117 
+  - b = 98 
+  - y = 121
+
+If we dig deeper, the number for each character is represented as binary to the
+computer.  So how can we convert each number to its binary equivalent?
+
+I'm going to show you a trick that I used when I had to deal with dotted-decimal
+notation back in my Cisco (routers/switches) days.
+(Resource: https://en.wikipedia.org/wiki/Dot-decimal_notation)
+
+```
+      128  64  32  16  |  8  4  2  1
+0   =   0   0   0   0  |  0  0  0  0
+255 =   1   1   1   1  |  1  1  1  1
+```
+
+The pipe charcter is not needed, it just helps me visualize the separation of
+the first four bits from the second four bits.
+
+With the above example present, can anyone tell me which bits should be on (1)
+and which should be off (0) in order to come up with the value of 82?
+
+We will come back to this conversion to binary later in the talk.
+
+
+
 ### Before you begin, confirm you have Ruby installed
 
 ```
@@ -213,111 +316,6 @@ git init
 git add .
 git commit -m 'Initial Commit'
 ```
-
-
-## Backstory
-
-Before moving forward I'd like to take a few minutes to discuss a possible approach
-to taking a Lorem Ipsum sentence and converting it to Binary.  Most of us humans
-do not normally converse in binary.  What exactly is binary?  How does it relate
-to the task at hand?
-
-In the simpliest term, we visualize binary as either 0 or 1.  Let's look at a word
-that is more familiar to us silly humans:  Ruby
-
-The word 'Ruby' is a collection/string of characters.  Those characters being:
-
-  **R, u, b and y**
-
-Behind the scenes, those letters have a decimal representation.  For example:
-
-  - R = 82
-  - u = 117 
-  - b = 98 
-  - y = 121
-
-
-### Example via irb
-
-```
- :001 > example_word = "Ruby"
-"Ruby"
- :002 > example_as_array = example_word.chars
-[
-    [0] "R",
-    [1] "u",
-    [2] "b",
-    [3] "y"
-]
- :003 > example_as_array.each do |ltr|
- :004 >     puts ltr.ord
- :005?>   end
-82
-117
-98
-121
-[
-    [0] "R",
-    [1] "u",
-    [2] "b",
-    [3] "y"
-]
-```
-
-
-Below is another approach to what we did above, but with less code:
-
-```
-➜  ~ irb
-2.2.3 :001 > example_word = "Ruby"
-"Ruby"
-2.2.3 :002 > example_word.chars.each do |ltr|
-2.2.3 :003 >     puts ltr.ord
-2.2.3 :004?>   end
-82
-117
-98
-121
-[
-    [0] "R",
-    [1] "u",
-    [2] "b",
-    [3] "y"
-]
-2.2.3 :005 >
-```
-
-
-Ok, a quick review.  Above we saw the following:
-
-  - R = 82
-  - u = 117 
-  - b = 98 
-  - y = 121
-
-If we dig deeper, the number for each character is represented as binary to the
-computer.  So how can we convert each number to its binary equivalent?
-
-I'm going to show you a trick that I used when I had to deal with dotted-decimal
-notation back in my Cisco (routers/switches) days.
-(Resource: https://en.wikipedia.org/wiki/Dot-decimal_notation)
-
-```
-      128  64  32  16  |  8  4  2  1
-0   =   0   0   0   0  |  0  0  0  0
-255 =   1   1   1   1  |  1  1  1  1
-```
-
-The pipe charcter is not needed, it just helps me visualize the separation of
-the first four bits from the second four bits.
-
-With the above example present, can anyone tell me which bits should be on (1)
-and which should be off (0) in order to come up with the value of 82?
-
-We will come back to this conversion to binary later in the talk.
-
-With the above information at hand, we can now return to writing our first test.
-We will use the word 'Ruby', and the related character codes, to construct our test.
 
 
 With your favorite editor, re-open the spec/binary\_ipsum\_spec.rb file if you do
@@ -1544,7 +1542,7 @@ working on our BinaryIpsum solution.
   -  Asciinema:       https://asciinema.org
 
 
-# EXTRA - A Example Via Irb
+# EXTRA - An Example Via Irb
 
 ```
 ➜  binary_ipsum git:(master) ✗ irb
