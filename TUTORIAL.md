@@ -1608,5 +1608,59 @@ true
     https://asciinema.org/a/5zc8kxlqqpms3uhdiue6q2y6v
 
 
+## BONUS ROUND - Docker
+
+If you would like to try out Docker I have included a Dockerfile with this repo.
+Assuming you have either cloned this repo, or copied the Dockerfile included into
+your project, you should be able to try out the commands below.
+
+Of course, this assumes that you have Docker installed and running on your computer.
+
+  - https://www.docker.com/
+  - https://dockerlux.github.io/pdf/cheat-sheet-v2.pdf
+  
+
+```
+# From your project directory (e.g. /Users/your_name/Documents/binary_ipsum/)
+
+docker build -t binary-ipsum .
+
+docker images
+
+# Example:
+➜  binary_ipsum git:(master) ✗ docker images
+REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
+binary-ipsum           latest              1af4913ca860        19 seconds ago      179.2 MB
+alpine                 3.2                 07475f8c6d9d        10 days ago         5.265 MB
+{--SNIP--}
+hello-world            latest              c54a2cc56cbb        3 months ago        1.848 kB
+➜  binary_ipsum git:(master) ✗
+
+docker run -it binary-ipsum bash
+
+# Example
+➜  binary_ipsum git:(master) ✗ docker run -it binary-ipsum bash
+bash-4.3# bundle exec rspec spec/
+
+BinaryIpsum
+  string convert to character codes
+    returns the character code for a given character
+    returns an array of character codes for the word Ruby
+  converts a string to binary
+    returns binary representation for a submitted string
+  converts a string of Lorem Ipsum to binary
+    returns binary representation for a lorem ipsum string
+  allows user to create a random lorem ipsum sentence
+    returns a random lorem ipsum string when using random true attribute
+    returns a random lorem ipsum string of 7 sentences when using random true attribute and specifying number of sentences
+    returns the string Ruby if no parameters are passed
+
+Finished in 0.43202 seconds (files took 0.15545 seconds to load)
+7 examples, 0 failures
+
+bash-4.3# exit
+exit
+➜  binary_ipsum git:(master) ✗
+```
 
 **THE END**
