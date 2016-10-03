@@ -1630,7 +1630,7 @@ docker images
 # Example:
 ➜  binary_ipsum git:(master) ✗ docker images
 REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
-binary-ipsum           latest              1af4913ca860        19 seconds ago      179.2 MB
+binary-ipsum           latest              8fa8e7b817b5        About an hour ago   200.6 MB
 alpine                 3.2                 07475f8c6d9d        10 days ago         5.265 MB
 {--SNIP--}
 hello-world            latest              c54a2cc56cbb        3 months ago        1.848 kB
