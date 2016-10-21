@@ -1540,6 +1540,8 @@ working on our BinaryIpsum solution.
   -  Twitter/GitHub:  HoGiHung
   -  Blog:            http://ognt.io  -OR- http://oldguynewtrick.com/
   -  Asciinema:       https://asciinema.org
+  -  Keynote:         http://johnhogarty.com/binary_ipsum/BinaryIpsum.zip   (Apple Keynote presentation)
+                      http://johnhogarty.com/binary_ipsum/BinaryIpsum.pdf   (PDF version)
 
 
 # EXTRA - An Example Via Irb
